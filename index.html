@@ -353,8 +353,7 @@
             <button class="btn btn-secondary" onclick="closeModal('todoModal')">Cancel</button>
         </div>
     </div>
-
-    <script>
+<script>
     // Storage wrapper
     const storage = {
         data: {},
@@ -389,6 +388,7 @@
     const categoriesContainer = document.getElementById('categoriesContainer');
     const addCategoryBtn = document.getElementById('addCategoryBtn');
     const addTodoBtn = document.getElementById('addTodoBtn');
+    const calendarButton = document.getElementById('calendarButton'); // Calendar button
 
     // Joystick variables
     const maxRadius = 100;
@@ -534,34 +534,36 @@
         }
     }
 
-    // REPLACE YOUR EXISTING showTodosPage FUNCTION WITH THIS
-function showTodosPage(category) {
-    // Create color flash effect
-    const categoryIndex = categories.indexOf(category);
-    const categoryColor = colors[categoryIndex % colors.length];
-    
-    const flash = document.createElement('div');
-    flash.className = 'color-flash';
-    flash.style.background = categoryColor;
-    document.body.appendChild(flash);
+    // Show todos page
+    function showTodosPage(category) {
+        // Create color flash effect
+        const categoryIndex = categories.indexOf(category);
+        const categoryColor = colors[categoryIndex % colors.length];
+        
+        const flash = document.createElement('div');
+        flash.className = 'color-flash';
+        flash.style.background = categoryColor;
+        document.body.appendChild(flash);
 
-    // Remove flash element after animation
-    setTimeout(() => {
-        flash.remove();
-    }, 500);
+        // Remove flash element after animation
+        setTimeout(() => {
+            flash.remove();
+        }, 500);
 
-    // Original page switching code
-    currentCategory = category;
-    document.getElementById('categoriesPage').style.display = 'none';
-    document.getElementById('todosPage').style.display = 'block';
-    document.getElementById('categoryTitle').textContent = category;
-    renderTodos();
-}
+        // Original page switching code
+        currentCategory = category;
+        document.getElementById('categoriesPage').style.display = 'none';
+        document.getElementById('todosPage').style.display = 'block';
+        document.getElementById('categoryTitle').textContent = category;
+        calendarButton.style.display = 'none'; // Hide calendar button on todos page
+        renderTodos();
+    }
 
-
+    // Show categories page
     function showCategoriesPage() {
         document.getElementById('categoriesPage').style.display = 'flex';
         document.getElementById('todosPage').style.display = 'none';
+        calendarButton.style.display = 'flex'; // Show calendar button on categories page
     }
 
     function closeModal(modalId) {
@@ -674,9 +676,12 @@ function showTodosPage(category) {
     addTodoBtn.addEventListener('click', () => {
         document.getElementById('todoModal').style.display = 'flex';
     });
-document.getElementById('calendarButton').addEventListener('click', function() {
-    window.location.href = 'https://dailytask-omega.vercel.app/';
-});
+
+    // Calendar button functionality
+    calendarButton.addEventListener('click', function() {
+        window.location.href = 'https://dailytask-omega.vercel.app/';
+    });
+
     // Close modals when clicking outside
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
