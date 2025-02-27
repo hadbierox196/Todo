@@ -44,6 +44,31 @@
             justify-content: center;
             align-items: center;
         }
+        
+        .calendar-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--cyan);
+    border: none;
+    color: var(--dark-blue);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(102, 224, 194, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 224, 194, 0.5);
+}
 
         .todos-page {
             display: none;
@@ -281,7 +306,11 @@
        
     </style>
 </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <body>
+    <button id="calendarButton" class="calendar-btn">
+    <i class="fas fa-calendar-alt"></i>
+    </button>
     <div class="page categories-page" id="categoriesPage">
         <button class="add-btn" id="addCategoryBtn">+</button>
         <div class="joystick-container">
@@ -645,7 +674,9 @@ function showTodosPage(category) {
     addTodoBtn.addEventListener('click', () => {
         document.getElementById('todoModal').style.display = 'flex';
     });
-
+document.getElementById('calendarButton').addEventListener('click', function() {
+    window.location.href = 'https://dailytask-omega.vercel.app/';
+});
     // Close modals when clicking outside
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
